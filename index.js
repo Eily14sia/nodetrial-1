@@ -70,6 +70,13 @@ app.get('/api/userinfo', verifyToken, async (req, res) => {
       } else if (req.role === 'user') {
         userInfo = await UserInfo.findByPk(req.userId, {
           attributes: ['user_id', 'name', 'description', 'isDemo', 'isActive'],
+          include: [
+            {
+              model: AccountType,
+              as: 'accountType',
+              attributes: ['type_name'],
+            },
+          ],
         });
       }
   
