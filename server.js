@@ -1,13 +1,13 @@
-const express = require('express');
 const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv').config();
 
 // Create a new Sequelize instance
 const sequelize = new Sequelize({
-  database: 'nodetrial',
-  username: 'root',
-  password: '', // Update with your database password
-  host: 'localhost', // or your database host
-  dialect: 'mysql',
+  database: process.env.DB_DATABASE,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
 });
 
 // Test the connection

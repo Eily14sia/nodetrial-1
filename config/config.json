@@ -1,0 +1,39 @@
+{
+  "development": {
+    "database": "nodetrial",
+    "username": "root",
+    "password": "",
+    "host": "localhost",
+    "dialect": "mysql",
+    "define": {
+      "underscored": true,
+      "timestamps": false
+    },
+    "dialectOptions": {
+      "useUTC": false,
+      "timezone": "Etc/GMT0"
+    },
+    "migrationStorageTableName": "sequelize_meta",
+    "seederStorageTableName": "sequelize_data",
+    "migrationStorageTableSchema": "public",
+    "seederStorageTableSchema": "public",
+    "modelsPath": "models",
+    "seedersPath": "seeders",
+    "migrationsPath": "migrations"
+  },
+  "test": {
+    "database": "database_test",
+    "username": "root",
+    "password": null,
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "database": "database_production",
+    "username": "root",
+    "password": null,
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+
+}
