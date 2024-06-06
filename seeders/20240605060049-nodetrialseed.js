@@ -31,7 +31,7 @@ module.exports = {
       await queryInterface.sequelize.query(`
         INSERT INTO \`acc_type\` VALUES 
         (1,'LGU','test',1,'2024-06-05 11:17:10','2024-06-05 11:17:10',NULL,NULL,NULL),
-        (2,'Tour','test2',1,'2024-06-05 11:17:10','2024-06-05 11:17:10',NULL,NULL,NULL);
+        (2,'Tour','test2',1,'2024-06-05 11:17:10','2024-06-05 11:17:10',NULL,NULL,NULL),
         (3,'Profession','test3',1,'2024-06-06 11:17:10','2024-06-06 11:17:10',NULL,NULL,NULL);
       `);
 
