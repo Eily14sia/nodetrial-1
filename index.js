@@ -1,18 +1,17 @@
 const express = require('express');
 const app = express();
-const cors = require('cors'); // Assuming you want to allow CORS (consider security implications)
+const cors = require('cors'); 
 const dotenv = require('dotenv').config();
 const router = express.Router();
 
 // Connect to the database
-const { testConnection } = require('./server'); // Assuming server.js is in the same directory
+const { testConnection } = require('./server'); 
 
 // Routes
 const authRoutes = require('./route/authRoutes');
 const userRoutes = require('./route/userRoutes');
 const superAdminRoutes = require('./route/superAdminRoutes');
 
-// Test the database connection (optional)
 testConnection(); // Call this function to test the connection on startup
 
 // Middleware
