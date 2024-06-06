@@ -50,7 +50,7 @@ async function login(req, res) {
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
-async function getUserInfo(req, res) {
+async function getUserInfoByID(req, res) {
   try {
     const token = req.headers.authorization;
     if (!token) {
@@ -107,4 +107,4 @@ async function getUserInfo(req, res) {
 // Use multer to handle form data for login
 const loginWithMulter = [upload.none(), login];
 
-module.exports = { login: loginWithMulter, getUserInfo };
+module.exports = { login: loginWithMulter, getUserInfoByID };

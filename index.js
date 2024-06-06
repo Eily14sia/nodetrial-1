@@ -10,6 +10,7 @@ const { testConnection } = require('./server'); // Assuming server.js is in the 
 // Routes
 const authRoutes = require('./route/authRoutes');
 const userRoutes = require('./route/userRoutes');
+const superAdminRoutes = require('./route/superAdminRoutes');
 
 // Test the database connection (optional)
 testConnection(); // Call this function to test the connection on startup
@@ -20,7 +21,8 @@ app.use(cors()); // Enable CORS if needed
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes); // Assuming all routes are prefixed with '/api'
+app.use('/api/user', userRoutes); 
+app.use('/api/superAdmin', superAdminRoutes); 
 
 // Start the server
 const PORT = process.env.PORT; // Use PORT from .env file or default to 3000

@@ -1,15 +1,10 @@
-const { User, UserInfo } = require('../models/database');
+const { User, UserInfo, AccountType } = require('../models/database');
 const bcrypt = require('bcrypt');
-const multer = require('multer');
-const authenticateToken = require('../middleware/authToken');
 const saltRounds = 10; // You can adjust the salt rounds for hashing
-
-// Configure multer
-const upload = multer();
 
 // Controller function to create a new user and user info
 async function createUser(req, res) {
-  const { username, password, role_id, name, description, acc_type, isDemo, isActive } = req.body;
+  const { username, password, role_id, name, description, acc_type, isDemo } = req.body;
 
   try {
     if (!username || !password || !role_id || !name || !acc_type) {
@@ -20,20 +15,38 @@ async function createUser(req, res) {
       return res.status(400).json({ resultKey: false, errorMessage: 'Invalid role' });
     }
 
+    // Check if the username already exists
+    const existingUser = await User.findOne({ where: { username } });
+    if (existingUser) {
+      return res.status(400).json({ resultKey: false, errorMessage: 'Username already exists' });
+    }
+
     // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const newUser = await User.create({ username, password: hashedPassword, role_id });
+    // Find the AccountType based on acc_type
+    const accountType = await AccountType.findOne({ where: { id_type: acc_type } });
+    if (!accountType) {
+      return res.status(404).json({ resultKey: false, errorMessage: 'Account type not found' });
+    }
+
+    // Create the user with isActive set to true and the related acc_type_id
+    const newUser = await User.create({ username, password: hashedPassword, role_id, isActive: true });
+
+    // Create the user info with isActive based on the user's isActive status and the fetched acc_type_id
     const newUserInfo = await UserInfo.create({
       user_id: newUser.id,
       name,
       description,
-      acc_type,
+      acc_type_id: accountType.id_type,
       isDemo: isDemo || false,
-      isActive: isActive || true,
+      isActive: newUser.isActive,
     });
 
-    res.json({ resultKey: true, user: newUser, userInfo: newUserInfo });
+    // Fetch the acc_type name corresponding to the acc_type_id
+    const accTypeName = accountType.type_name;
+
+    res.json({ resultKey: true, user: newUser, userInfo: { ...newUserInfo.toJSON(), acc_type: accTypeName } });
   } catch (error) {
     console.error('Error creating new user:', error);
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
@@ -61,15 +74,11 @@ async function deleteUser(req, res) {
     // Update the user isActive field
     await user.update({ isActive: false });
 
-    res.json({ resultKey: true, errorMessage: 'User and associated user info deactivated successfully' });
+    res.json({ resultKey: true, resultValue: 'User and associated user info deactivated successfully' });
   } catch (error) {
-    logError(error); // Log the error
+    console.error('Error deleting user:', error);
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
 
-// Use multer to handle form data for createUser
-const createUserWithMulter = [upload.none(), authenticateToken, createUser];
-const deleteUserWithAuth = [authenticateToken, deleteUser];
-
-module.exports = { createUser: createUserWithMulter, deleteUser: deleteUserWithAuth };
+module.exports = { createUser, deleteUser };
