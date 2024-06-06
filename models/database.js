@@ -31,6 +31,7 @@ const User = sequelize.define('user', {
   },
   created_by: DataTypes.INTEGER,
   updated_by: DataTypes.INTEGER,
+  created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE,
   deleted_at: DataTypes.DATE,
   last_login: DataTypes.DATE,
@@ -58,6 +59,7 @@ const AccountType = sequelize.define('acc_type', {
   },
   created_by: DataTypes.INTEGER,
   updated_by: DataTypes.INTEGER,
+  created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE,
   deleted_at: DataTypes.DATE,
 }, { ...commonOptions, tableName: 'acc_type'});
@@ -91,6 +93,7 @@ const UserInfo = sequelize.define('userinfo', {
   },
   created_by: DataTypes.INTEGER,
   updated_by: DataTypes.INTEGER,
+  created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE,
   deleted_at: DataTypes.DATE,
 }, { ...commonOptions, tableName: 'userinfo' });
