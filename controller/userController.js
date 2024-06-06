@@ -1,5 +1,6 @@
 const { User, UserInfo, AccountType } = require('../models/database');
 const bcrypt = require('bcrypt');
+const logger = require('../utils/logger');
 const saltRounds = 10; // You can adjust the salt rounds for hashing
 
 // Controller function to create a new user and user info
@@ -48,7 +49,7 @@ async function createUser(req, res) {
 
     res.json({ resultKey: true, user: newUser, userInfo: { ...newUserInfo.toJSON(), acc_type: accTypeName } });
   } catch (error) {
-    console.error('Error creating new user:', error);
+    logger.error(`Error creating new user: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
@@ -76,7 +77,7 @@ async function deleteUser(req, res) {
 
     res.json({ resultKey: true, resultValue: 'User and associated user info deactivated successfully' });
   } catch (error) {
-    console.error('Error deleting user:', error);
+    logger.error(`Error deleting user: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }

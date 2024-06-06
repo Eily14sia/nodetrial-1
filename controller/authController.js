@@ -2,6 +2,7 @@ const { User, UserInfo, AccountType } = require('../models/database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
+const logger = require('../utils/logger');
 require('dotenv').config();
 
 const secretKey = process.env.JWT_SECRET_KEY;
@@ -46,10 +47,12 @@ async function login(req, res) {
     const token = generateToken(user);
     res.json({ resultKey: true, resultValue: token });
   } catch (error) {
+    logger.error(`Error logging in: ${error.message}`);
     console.error('Error logging in:', error);
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
+
 async function getUserInfoByID(req, res) {
   try {
     const token = req.headers.authorization;
@@ -59,6 +62,7 @@ async function getUserInfoByID(req, res) {
 
     jwt.verify(token.split(' ')[1], secretKey, async (err, decodedToken) => {
       if (err) {
+        logger.error(`Error verifying token: ${err.message}`);
         console.error('Error verifying token:', err);
         return res.status(403).json({ resultKey: false, errorMessage: 'Failed to authenticate token' });
       }
@@ -99,6 +103,7 @@ async function getUserInfoByID(req, res) {
       res.json({ resultKey: true, resultValue: userInfoJSON });
     });
   } catch (error) {
+    logger.error(`Error fetching user info: ${error.message}`);
     console.error('Error fetching user info:', error);
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }

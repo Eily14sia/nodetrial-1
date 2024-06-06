@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\barve\\Documents\\GitHub\\nodetrial-1\\public\\logs\\.9ff254ffb2bfdb2271922f51b0b30b7753b323ab-audit.json",
+    "files": [
+        {
+            "date": 1717657070244,
+            "name": "C:\\Users\\barve\\Documents\\GitHub\\nodetrial-1\\public\\logs\\log_2024-06-06.txt",
+            "hash": "57310794747e5b3fcab5ff7b0f78dac3401fcd52a7947c2dfcf46c5c02e8ec4a"
+        }
+    ],
+    "hashType": "sha256"
+}

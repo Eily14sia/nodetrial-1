@@ -1,5 +1,9 @@
 // Import necessary models or functions
-const { UserInfo, AccountType, Site, LogMaster} = require('../models/database');
+const { UserInfo, AccountType, Site, LogMaster } = require('../models/database');
+const logger = require('../utils/logger');
+// Import the sequelize instance and testConnection function from server.js
+const { sequelize } = require('../server');
+
 
 // Controller function to get all accounts
 async function getAllAcc(req, res) {
@@ -7,7 +11,7 @@ async function getAllAcc(req, res) {
     const allAccounts = await UserInfo.findAll();
     res.json(allAccounts);
   } catch (error) {
-    console.error('Error getting all accounts:', error);
+    logger.error(`Error getting all accounts: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
@@ -18,7 +22,7 @@ async function getAllAccType(req, res) {
     const allAccountTypes = await AccountType.findAll();
     res.json(allAccountTypes);
   } catch (error) {
-    console.error('Error getting all account types:', error);
+    logger.error(`Error getting all account types: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
@@ -29,14 +33,14 @@ async function getAllSite(req, res) {
     const allSites = await Site.findAll();
     res.json(allSites);
   } catch (error) {
-    console.error('Error getting all sites:', error);
+    logger.error(`Error getting all sites: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
 
 // Controller function to get account by ID
 async function getAccByID(req, res) {
-  const accountId = req.params.id; 
+  const accountId = req.params.id;
 
   try {
     const account = await UserInfo.findByPk(accountId);
@@ -45,14 +49,14 @@ async function getAccByID(req, res) {
     }
     res.json(account);
   } catch (error) {
-    console.error('Error getting account by ID:', error);
+    logger.error(`Error getting account by ID: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
 
 // Controller function to get account type by ID
 async function getAccTypeByID(req, res) {
-  const accTypeId = req.params.id; // ID passed in the route
+  const accTypeId = req.params.id;
 
   try {
     const accType = await AccountType.findByPk(accTypeId);
@@ -61,14 +65,14 @@ async function getAccTypeByID(req, res) {
     }
     res.json(accType);
   } catch (error) {
-    console.error('Error getting account type by ID:', error);
+    logger.error(`Error getting account type by ID: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
 
 // Controller function to get site by ID
 async function getSiteByID(req, res) {
-  const siteId = req.params.id; // ID passed in the route
+  const siteId = req.params.id;
 
   try {
     const site = await Site.findByPk(siteId);
@@ -77,20 +81,139 @@ async function getSiteByID(req, res) {
     }
     res.json(site);
   } catch (error) {
-    console.error('Error getting site by ID:', error);
+    logger.error(`Error getting site by ID: ${error.message}`, { stack: error.stack });
     res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
 
-// Controller function to get All Logs
+// Controller function to get all logs
 async function getAllLogs(req, res) {
-    try {
-      const allLogs = await LogMaster.findAll();
-      res.json(allLogs);
-    } catch (error) {
-      console.error('Error getting all logs:', error);
-      res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
-    }
+  try {
+    const allLogs = await LogMaster.findAll();
+    res.json(allLogs);
+  } catch (error) {
+    logger.error(`Error getting all logs: ${error.message}`, { stack: error.stack });
+    res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
+}
 
-module.exports = { getAllAcc, getAllAccType, getAllSite, getAccByID, getAccTypeByID, getSiteByID, getAllLogs };
+// Controller function to update and save user info with transaction rollbacks
+async function updateAndSaveUserInfo(req, res) {
+    const user_id = req.params.id; 
+    const { name, description, acc_type_id, isDemo, isActive } = req.body;
+
+    // Start a transaction
+    const t = await sequelize.transaction();
+
+    try {
+        // Find the user info to update
+        const userInfo = await UserInfo.findOne({ where: { user_id }, transaction: t });
+
+        if (!userInfo) {
+            await t.rollback();
+            return res.status(404).json({ resultKey: false, errorMessage: 'User info not found' });
+        }
+
+        // Update the user info fields
+        userInfo.name = name;
+        userInfo.description = description;
+        userInfo.acc_type_id = acc_type_id;
+        userInfo.isDemo = isDemo;
+        userInfo.isActive = isActive;
+
+        // Save the updated user info
+        await userInfo.save({ transaction: t });
+
+        // Commit the transaction
+        await t.commit();
+
+        res.json({ resultKey: true, message: 'User info updated and saved successfully' });
+    } catch (error) {
+        // Rollback the transaction if an error occurs
+        await t.rollback();
+
+        logger.error(`Error updating and saving user info: ${error.message}`, { stack: error.stack });
+        res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+    }
+}
+// Controller function to update and save account type
+async function updateAndSaveAccountType(req, res) {
+    const type_id = req.params.id; // Assuming the type ID is passed in the route parameter
+    const { type_name, description, isActive } = req.body;
+
+    // Start a transaction
+    const t = await sequelize.transaction();
+
+    try {
+        // Find the account type to update
+        const accountType = await AccountType.findByPk(type_id, { transaction: t });
+
+        if (!accountType) {
+            await t.rollback();
+            return res.status(404).json({ resultKey: false, errorMessage: 'Account type not found' });
+        }
+
+        // Update the account type fields
+        accountType.type_name = type_name;
+        accountType.description = description;
+        accountType.isActive = isActive;
+
+        // Save the updated account type
+        await accountType.save({ transaction: t });
+
+        // Commit the transaction
+        await t.commit();
+
+        res.json({ resultKey: true, message: 'Account type updated and saved successfully' });
+    } catch (error) {
+        // Rollback the transaction if an error occurs
+        await t.rollback();
+
+        logger.error(`Error updating and saving account type: ${error.message}`, { stack: error.stack });
+        res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+    }
+}
+
+// Controller function to update and save a site
+async function updateAndSaveSite(req, res) {
+    const siteId = req.params.id; // Assuming the site ID is passed in the route parameter
+    const { name, url, domain, ip, isActive } = req.body;
+
+    // Start a transaction
+    const t = await sequelize.transaction();
+
+    try {
+        // Find the site to update
+        const site = await Site.findByPk(siteId, { transaction: t });
+
+        if (!site) {
+            await t.rollback();
+            return res.status(404).json({ resultKey: false, errorMessage: 'Site not found' });
+        }
+
+        // Update the site fields
+        site.name = name;
+        site.url = url;
+        site.domain = domain;
+        site.ip = ip;
+        site.isActive = isActive;
+
+        // Save the updated site
+        await site.save({ transaction: t });
+
+        // Commit the transaction
+        await t.commit();
+
+        res.json({ resultKey: true, message: 'Site updated and saved successfully' });
+    } catch (error) {
+        // Rollback the transaction if an error occurs
+        await t.rollback();
+
+        logger.error(`Error updating and saving site: ${error.message}`, { stack: error.stack });
+        res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+    }
+}
+
+module.exports = { getAllAcc, getAllAccType, getAllSite, getAccByID, getAccTypeByID, getSiteByID, getAllLogs,  updateAndSaveUserInfo
+    , updateAndSaveAccountType, updateAndSaveSite
+ };

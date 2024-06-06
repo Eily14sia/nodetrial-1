@@ -1,0 +1,97 @@
+2024-06-06 14:59:03 error: uncaughtException: sequelize is not defined
+ReferenceError: sequelize is not defined
+    at updateAndSaveUserInfo (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js:102:15)
+    at Layer.handle [as handle_request] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\route.js:149:13)
+    at done (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\multer\lib\make-middleware.js:45:7)
+    at indicateDone (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\multer\lib\make-middleware.js:49:68)
+    at Multipart.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\multer\lib\make-middleware.js:166:7)
+    at Multipart.emit (node:events:518:28)
+    at emitCloseNT (node:internal/streams/destroy:147:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21) at controller\superAdminController.js:102:15
+2024-06-06 14:59:58 error: uncaughtException: sequelize is not defined
+ReferenceError: sequelize is not defined
+    at updateAndSaveUserInfo (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js:102:15)
+    at Layer.handle [as handle_request] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\route.js:149:13)
+    at done (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\multer\lib\make-middleware.js:45:7)
+    at indicateDone (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\multer\lib\make-middleware.js:49:68)
+    at Multipart.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\multer\lib\make-middleware.js:166:7)
+    at Multipart.emit (node:events:518:28)
+    at emitCloseNT (node:internal/streams/destroy:147:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21) at controller\superAdminController.js:102:15
+2024-06-06 15:04:43 error: uncaughtException: Cannot find module './path/to/server'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './path/to/server'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js:5:39)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19) 
+2024-06-06 15:04:46 error: uncaughtException: Cannot find module './path/to/server'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './path/to/server'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js:5:39)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19) 
+2024-06-06 15:05:08 error: uncaughtException: Cannot find module './path/to/server'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './path/to/server'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\superAdminController.js:5:39)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19) 
+2024-06-06 15:08:07 error: Error updating and saving user info: WHERE parameter "user_id" has invalid "undefined" value at node_modules\sequelize\lib\dialects\abstract\query-generator.js:1743:13
+2024-06-06 15:09:59 error: Error updating and saving user info: WHERE parameter "user_id" has invalid "undefined" value at node_modules\sequelize\lib\dialects\abstract\query-generator.js:1743:13
+2024-06-06 15:11:17 error: Error updating and saving user info: WHERE parameter "user_id" has invalid "undefined" value at node_modules\sequelize\lib\dialects\abstract\query-generator.js:1743:13
+2024-06-06 15:49:46 error: uncaughtException: Route.put() requires a callback function but got a [object Undefined]
+Error: Route.put() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as put] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as put] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:521:19)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\route\superAdminRoutes.js:24:8)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:13:26) at node_modules\express\lib\router\route.js:216:15
