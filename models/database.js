@@ -62,7 +62,7 @@ const AccountType = sequelize.define('acc_type', {
   created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE,
   deleted_at: DataTypes.DATE,
-}, { ...commonOptions, tableName: 'acc_type'});
+}, { ...commonOptions, tableName: 'acc_type' });
 
 const UserInfo = sequelize.define('userinfo', {
   user_id: {
@@ -130,7 +130,7 @@ const Site = sequelize.define('site', {
   created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE,
   deleted_at: DataTypes.DATE,
-}, { ...commonOptions, tableName: 'site'  });
+}, { ...commonOptions, tableName: 'site' });
 
 const LogMaster = sequelize.define('logmaster', {
   id: {
@@ -164,22 +164,77 @@ const LogMaster = sequelize.define('logmaster', {
   created_at: DataTypes.DATE,
   updated_at: DataTypes.DATE,
   deleted_at: DataTypes.DATE,
-}, { ...commonOptions, tableName: 'logmaster'  });
+}, { ...commonOptions, tableName: 'logmaster' });
 
 // Define associations
 UserInfo.belongsTo(AccountType, { foreignKey: 'acc_type_id', as: 'accountType' });
 User.hasOne(UserInfo, { foreignKey: 'user_id' });
 UserInfo.belongsTo(User, { foreignKey: 'user_id' });
+UserInfo.belongsTo(Site, { foreignKey: 'site_id', as: 'site' });
+
 
 // Add a hook to update UserInfo.isActive when User.isActive changes
-User.addHook('beforeUpdate', async (user) => {
+User.addHook('beforeUpdate', async (user, options) => {
   if (user.changed('isActive')) {
     const userInfo = await UserInfo.findOne({ where: { user_id: user.id } });
     if (userInfo) {
       userInfo.isActive = user.isActive;
-      await userInfo.save();
+      await userInfo.save({ transaction: options.transaction });
     }
   }
 });
+
+// Log updates
+const logUpdate = async (instance, options) => {
+  const tableName = instance.constructor.tableName;
+  const primaryKey = instance.constructor.primaryKeyAttributes[0];
+  const primaryKeyValue = instance[primaryKey];
+
+  const originalData = instance._previousDataValues;
+  const updatedData = instance.dataValues;
+
+  await LogMaster.create({
+    tablename: tableName,
+    requested_data: JSON.stringify(originalData),
+    change_data: JSON.stringify(updatedData),
+    isActive: true,
+    is_status_change: originalData.isActive !== updatedData.isActive,
+    created_by: updatedData.updated_by,
+    updated_by: updatedData.updated_by,
+    created_at: new Date(),
+    updated_at: new Date(),
+  }, { transaction: options.transaction });
+};
+
+// Log creations
+const logCreate = async (instance, options) => {
+  const tableName = instance.constructor.tableName;
+  const primaryKey = instance.constructor.primaryKeyAttributes[0];
+  const primaryKeyValue = instance[primaryKey];
+
+  const createdData = instance.dataValues;
+
+  await LogMaster.create({
+    tablename: tableName,
+    requested_data: JSON.stringify({}),
+    change_data: JSON.stringify(createdData),
+    isActive: true,
+    is_status_change: false,
+    created_by: createdData.created_by,
+    updated_by: createdData.updated_by,
+    created_at: new Date(),
+    updated_at: new Date(),
+  }, { transaction: options.transaction });
+};
+
+User.addHook('afterUpdate', logUpdate);
+UserInfo.addHook('afterUpdate', logUpdate);
+AccountType.addHook('afterUpdate', logUpdate);
+Site.addHook('afterUpdate', logUpdate);
+
+User.addHook('afterCreate', logCreate);
+UserInfo.addHook('afterCreate', logCreate);
+AccountType.addHook('afterCreate', logCreate);
+Site.addHook('afterCreate', logCreate);
 
 module.exports = { User, UserInfo, AccountType, Site, LogMaster, sequelize };

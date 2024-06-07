@@ -9,7 +9,7 @@ const { testConnection } = require('./server');
 
 // Routes
 const authRoutes = require('./route/authRoutes');
-const userRoutes = require('./route/userRoutes');
+const crudRoutes = require('./route/crudRoutes');
 const superAdminRoutes = require('./route/superAdminRoutes');
 
 testConnection(); // Call this function to test the connection on startup
@@ -20,7 +20,7 @@ app.use(cors()); // Enable CORS if needed
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes); 
+app.use('/api/crud', crudRoutes); 
 app.use('/api/superAdmin', superAdminRoutes); 
 
 // Start the server

@@ -41,7 +41,7 @@ const logger = createLogger({
     new DailyRotateFile({
       dirname: logDirectory,
       filename: 'log_%DATE%.txt',
-      datePattern: 'YYYY-MM-DD',
+      datePattern: 'MM-DD-YYYY',
       handleExceptions: true,
       json: false,
       maxSize: '5m', // 5MB

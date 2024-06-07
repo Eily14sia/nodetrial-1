@@ -1,8 +1,6 @@
 // Import necessary models or functions
-const { UserInfo, AccountType, Site, LogMaster } = require('../models/database');
+const { sequelize, UserInfo, AccountType, Site, LogMaster } = require('../models/database');
 const logger = require('../utils/logger');
-// Import the sequelize instance and testConnection function from server.js
-const { sequelize } = require('../server');
 
 
 // Controller function to get all accounts
@@ -99,120 +97,129 @@ async function getAllLogs(req, res) {
 
 // Controller function to update and save user info with transaction rollbacks
 async function updateAndSaveUserInfo(req, res) {
-    const user_id = req.params.id; 
-    const { name, description, acc_type_id, isDemo, isActive } = req.body;
+  const user_id = req.params.id;
+  const updated_by = user_id;
+  const { name, description, acc_type_id, isDemo, isActive } = req.body;
 
-    // Start a transaction
-    const t = await sequelize.transaction();
+  // Start a transaction
+  const t = await sequelize.transaction();
 
-    try {
-        // Find the user info to update
-        const userInfo = await UserInfo.findOne({ where: { user_id }, transaction: t });
+  try {
+      // Find the user info to update
+      const userInfo = await UserInfo.findOne({ where: { user_id }, transaction: t });
 
-        if (!userInfo) {
-            await t.rollback();
-            return res.status(404).json({ resultKey: false, errorMessage: 'User info not found' });
-        }
+      if (!userInfo) {
+          await t.rollback();
+          return res.status(404).json({ resultKey: false, errorMessage: 'User info not found' });
+      }
 
-        // Update the user info fields
-        userInfo.name = name;
-        userInfo.description = description;
-        userInfo.acc_type_id = acc_type_id;
-        userInfo.isDemo = isDemo;
-        userInfo.isActive = isActive;
+      // Update the user info fields
+      userInfo.name = name;
+      userInfo.description = description;
+      userInfo.acc_type_id = acc_type_id;
+      userInfo.isDemo = isDemo;
+      userInfo.isActive = isActive;
+      userInfo.updated_by = updated_by; // Add the updated_by ID
 
-        // Save the updated user info
-        await userInfo.save({ transaction: t });
+      // Save the updated user info
+      await userInfo.save({ transaction: t });
 
-        // Commit the transaction
-        await t.commit();
+      // Commit the transaction
+      await t.commit();
 
-        res.json({ resultKey: true, message: 'User info updated and saved successfully' });
-    } catch (error) {
-        // Rollback the transaction if an error occurs
-        await t.rollback();
+      res.json({ resultKey: true, message: 'User info updated and saved successfully' });
+  } catch (error) {
+      // Rollback the transaction if an error occurs
+      await t.rollback();
 
-        logger.error(`Error updating and saving user info: ${error.message}`, { stack: error.stack });
-        res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
-    }
+      logger.error(`Error updating and saving user info: ${error.message}`, { stack: error.stack });
+      res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+  }
 }
+
 // Controller function to update and save account type
 async function updateAndSaveAccountType(req, res) {
-    const type_id = req.params.id; // Assuming the type ID is passed in the route parameter
-    const { type_name, description, isActive } = req.body;
+  const type_id = req.params.id;
+  const updated_by = req.user.id; 
+  const { type_name, description, isActive } = req.body;
 
-    // Start a transaction
-    const t = await sequelize.transaction();
+  // Start a transaction
+  const t = await sequelize.transaction();
 
-    try {
-        // Find the account type to update
-        const accountType = await AccountType.findByPk(type_id, { transaction: t });
+  try {
+      // Find the account type to update
+      const accountType = await AccountType.findByPk(type_id, { transaction: t });
 
-        if (!accountType) {
-            await t.rollback();
-            return res.status(404).json({ resultKey: false, errorMessage: 'Account type not found' });
-        }
+      if (!accountType) {
+          await t.rollback();
+          return res.status(404).json({ resultKey: false, errorMessage: 'Account type not found' });
+      }
 
-        // Update the account type fields
-        accountType.type_name = type_name;
-        accountType.description = description;
-        accountType.isActive = isActive;
+      // Update the account type fields
+      accountType.type_name = type_name;
+      accountType.description = description;
+      accountType.isActive = isActive;
+      accountType.updated_by = updated_by; // Add the updated_by ID
 
-        // Save the updated account type
-        await accountType.save({ transaction: t });
+      // Save the updated account type
+      await accountType.save({ transaction: t });
 
-        // Commit the transaction
-        await t.commit();
+      // Commit the transaction
+      await t.commit();
 
-        res.json({ resultKey: true, message: 'Account type updated and saved successfully' });
-    } catch (error) {
-        // Rollback the transaction if an error occurs
-        await t.rollback();
+      res.json({ resultKey: true, message: 'Account type updated and saved successfully' });
+  } catch (error) {
+      // Rollback the transaction if an error occurs
+      await t.rollback();
 
-        logger.error(`Error updating and saving account type: ${error.message}`, { stack: error.stack });
-        res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
-    }
+      logger.error(`Error updating and saving account type: ${error.message}`, { stack: error.stack });
+      res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+  }
 }
+
 
 // Controller function to update and save a site
 async function updateAndSaveSite(req, res) {
-    const siteId = req.params.id; // Assuming the site ID is passed in the route parameter
-    const { name, url, domain, ip, isActive } = req.body;
+  const siteId = req.params.id;
+  const updated_by = req.user.id; // Assuming req.user contains the authenticated user's details
+  const { name, url, domain, ip, isActive } = req.body;
 
-    // Start a transaction
-    const t = await sequelize.transaction();
+  // Start a transaction
+  const t = await sequelize.transaction();
 
-    try {
-        // Find the site to update
-        const site = await Site.findByPk(siteId, { transaction: t });
+  try {
+      // Find the site to update
+      const site = await Site.findByPk(siteId, { transaction: t });
 
-        if (!site) {
-            await t.rollback();
-            return res.status(404).json({ resultKey: false, errorMessage: 'Site not found' });
-        }
+      if (!site) {
+          await t.rollback();
+          return res.status(404).json({ resultKey: false, errorMessage: 'Site not found' });
+      }
 
-        // Update the site fields
-        site.name = name;
-        site.url = url;
-        site.domain = domain;
-        site.ip = ip;
-        site.isActive = isActive;
+      // Update the site fields
+      site.name = name;
+      site.url = url;
+      site.domain = domain;
+      site.ip = ip;
+      site.isActive = isActive;
+      site.updated_by = updated_by; // Add the updated_by ID
 
-        // Save the updated site
-        await site.save({ transaction: t });
+      // Save the updated site
+      await site.save({ transaction: t });
 
-        // Commit the transaction
-        await t.commit();
+      // Commit the transaction
+      await t.commit();
 
-        res.json({ resultKey: true, message: 'Site updated and saved successfully' });
-    } catch (error) {
-        // Rollback the transaction if an error occurs
-        await t.rollback();
+      res.json({ resultKey: true, message: 'Site updated and saved successfully' });
+  } catch (error) {
+      // Rollback the transaction if an error occurs
+      await t.rollback();
 
-        logger.error(`Error updating and saving site: ${error.message}`, { stack: error.stack });
-        res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
-    }
+      logger.error(`Error updating and saving site: ${error.message}`, { stack: error.stack });
+      res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+  }
 }
+
 
 module.exports = { getAllAcc, getAllAccType, getAllSite, getAccByID, getAccTypeByID, getSiteByID, getAllLogs,  updateAndSaveUserInfo
     , updateAndSaveAccountType, updateAndSaveSite

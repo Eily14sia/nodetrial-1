@@ -1,0 +1,175 @@
+2024-06-07 09:09:02 error: Error logging in: sequelize is not defined 
+2024-06-07 09:09:29 error: Error logging in: Cannot set headers after they are sent to the client 
+2024-06-07 09:09:29 error: uncaughtException: Cannot set headers after they are sent to the client
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at ServerResponse.setHeader (node:_http_outgoing:652:11)
+    at ServerResponse.header (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:795:10)
+    at ServerResponse.send (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:175:12)
+    at ServerResponse.json (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:279:15)
+    at login (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\authController.js:73:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) at node:_http_outgoing:652:11
+2024-06-07 09:13:16 error: Error logging in: Cannot set headers after they are sent to the client 
+2024-06-07 09:13:16 error: uncaughtException: Cannot set headers after they are sent to the client
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at ServerResponse.setHeader (node:_http_outgoing:652:11)
+    at ServerResponse.header (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:795:10)
+    at ServerResponse.send (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:175:12)
+    at ServerResponse.json (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:279:15)
+    at login (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\authController.js:74:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) at node:_http_outgoing:652:11
+2024-06-07 09:15:42 error: Error logging in: Cannot set headers after they are sent to the client 
+2024-06-07 09:15:42 error: uncaughtException: Cannot set headers after they are sent to the client
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at ServerResponse.setHeader (node:_http_outgoing:652:11)
+    at ServerResponse.header (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:795:10)
+    at ServerResponse.send (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:175:12)
+    at ServerResponse.json (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\response.js:279:15)
+    at login (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\authController.js:74:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) at node:_http_outgoing:652:11
+2024-06-07 09:25:31 error: Error creating new user: sequelize is not defined at controller\userController.js:37:25
+2024-06-07 09:34:56 error: uncaughtException: Cannot read properties of undefined (reading 'id')
+TypeError: Cannot read properties of undefined (reading 'id')
+    at deleteUser (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\userController.js:84:30)
+    at Layer.handle [as handle_request] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:284:15
+    at param (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:365:14)
+    at param (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:376:14)
+    at Function.process_params (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:421:3)
+    at next (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:280:10) at controller\userController.js:84:30
+2024-06-07 10:16:20 error: uncaughtException: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:12:20)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12) 
+2024-06-07 10:17:27 error: uncaughtException: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:12:20)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12) 
+2024-06-07 10:18:04 error: uncaughtException: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:12:20)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12) 
+2024-06-07 10:18:25 error: uncaughtException: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module './route/userRoutes'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:12:20)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12) 
+2024-06-07 10:19:09 error: uncaughtException: Cannot find module '../controller/userController'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+Error: Cannot find module '../controller/userController'
+Require stack:
+- C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js
+- C:\Users\barve\Documents\GitHub\nodetrial-1\index.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._load (node:internal/modules/cjs/loader:985:27)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js:3:36)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19) 
+2024-06-07 10:19:37 error: uncaughtException: updateAndSaveUserInfo is not defined
+ReferenceError: updateAndSaveUserInfo is not defined
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js:15:69)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:12:20)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10) at route\crudRoutes.js:15:69
+2024-06-07 10:22:21 error: uncaughtException: Route.post() requires a callback function but got a [object Undefined]
+Error: Route.post() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as post] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as post] (C:\Users\barve\Documents\GitHub\nodetrial-1\node_modules\express\lib\router\index.js:521:19)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js:21:8)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\index.js:12:20) at node_modules\express\lib\router\route.js:216:15
+2024-06-07 10:22:50 error: uncaughtException: createSite is not defined
+ReferenceError: createSite is not defined
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\crudController.js:250:50)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js:4:81)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10) at controller\crudController.js:250:50
+2024-06-07 10:24:07 error: uncaughtException: deleteSite is not defined
+ReferenceError: deleteSite is not defined
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\controller\crudController.js:372:62)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18)
+    at Object.<anonymous> (C:\Users\barve\Documents\GitHub\nodetrial-1\route\crudRoutes.js:4:81)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10) at controller\crudController.js:372:62
+2024-06-07 10:25:43 error: Error creating account type: notNull Violation: acc_type.type_name cannot be null,
+notNull Violation: acc_type.description cannot be null,
+notNull Violation: acc_type.isActive cannot be null 
+2024-06-07 10:40:56 error: Error creating site: Site is not defined at controller\crudController.js:265:21

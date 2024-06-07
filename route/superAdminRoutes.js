@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { getAllAcc, getAllAccType, getAllSite, getAccByID, getAccTypeByID, getSiteByID, getAllLogs,
-    updateAndSaveUserInfo, updateAndSaveAccountType, updateAndSaveSite
  } = require('../controller/superAdminController');
 const authenticateToken = require('../middleware/authToken');
 
@@ -20,8 +19,6 @@ router.get('/sites/:id', authenticateToken, getSiteByID);
 
 router.get('/logs', authenticateToken, getAllLogs);
 
-router.put('/updateUserInfo/:id', authenticateToken, upload.none(), updateAndSaveUserInfo);
-router.put('/updateAccountType/:id', authenticateToken, upload.none(), updateAndSaveAccountType);
-router.put('/updateSite/:id', authenticateToken, upload.none(), updateAndSaveSite);
+
 
 module.exports = router;

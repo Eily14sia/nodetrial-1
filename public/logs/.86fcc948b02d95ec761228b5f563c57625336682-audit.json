@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\barve\\Documents\\GitHub\\nodetrial-1\\public\\logs\\.86fcc948b02d95ec761228b5f563c57625336682-audit.json",
+    "files": [
+        {
+            "date": 1717661899796,
+            "name": "C:\\Users\\barve\\Documents\\GitHub\\nodetrial-1\\public\\logs\\log_06-06-2024.txt",
+            "hash": "dd498cf69fc4d36d70157023a712e9ebed34b95bc83b553e87077716036841c8"
+        },
+        {
+            "date": 1717722536135,
+            "name": "C:\\Users\\barve\\Documents\\GitHub\\nodetrial-1\\public\\logs\\log_06-07-2024.txt",
+            "hash": "583b9661df1150126d79ec55737c97f306e038f9db158ae0a5c3a0976c1afdf8"
+        }
+    ],
+    "hashType": "sha256"
+}

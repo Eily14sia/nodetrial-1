@@ -1,8 +1,9 @@
-const { User, UserInfo, AccountType } = require('../models/database');
+const { sequelize, User, UserInfo, AccountType } = require('../models/database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const logger = require('../utils/logger');
+
 require('dotenv').config();
 
 const secretKey = process.env.JWT_SECRET_KEY;
@@ -45,11 +46,30 @@ async function login(req, res) {
     }
 
     const token = generateToken(user);
-    res.json({ resultKey: true, resultValue: token });
+
+    // Start a transaction
+    const transaction = await sequelize.transaction();
+    try {
+      // Update the last_login and updated_by columns within the transaction
+      user.last_login = new Date();
+      user.updated_by = user.id;
+      await user.save({ transaction });
+
+      // Commit the transaction
+      await transaction.commit();
+
+      return res.json({ resultKey: true, resultValue: token });
+    } catch (updateError) {
+      // Rollback the transaction in case of an error
+      await transaction.rollback();
+      logger.error(`Error updating last_login: ${updateError.message}`);
+      console.error('Error updating last_login:', updateError);
+      return res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+    }
   } catch (error) {
     logger.error(`Error logging in: ${error.message}`);
     console.error('Error logging in:', error);
-    res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
+    return res.status(500).json({ resultKey: false, errorMessage: 'Server error' });
   }
 }
 
@@ -109,7 +129,4 @@ async function getUserInfoByID(req, res) {
   }
 }
 
-// Use multer to handle form data for login
-const loginWithMulter = [upload.none(), login];
-
-module.exports = { login: loginWithMulter, getUserInfoByID };
+module.exports = { login, getUserInfoByID };
