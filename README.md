@@ -17,6 +17,6 @@ password: 12345
 3. userRoutes for creating a user and deactivating/deleting a user.
 
 -------In Progress-------
-1. UpdateSave API's
-2. Log Data not yet applied but already created a table for that
+1. UpdateSave API's (DONE)
+2. Log Data not yet applied but already created a table for that (DONE)
 
