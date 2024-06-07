@@ -81,7 +81,7 @@ async function createUser(req, res) {
 // Controller function to delete a user and its user info
 async function deleteUser(req, res) {
   const userId = req.params.id;
-  const updatedBy = userId; // Assuming req.user contains the authenticated user's details
+  const updatedBy = userId; 
   const deletedAt = new Date();
 
   const transaction = await sequelize.transaction();
@@ -145,7 +145,7 @@ async function updateAndSaveUserInfo(req, res) {
       userInfo.acc_type_id = acc_type_id;
       userInfo.isDemo = isDemo;
       userInfo.isActive = isActive;
-      userInfo.updated_by = updated_by; // Add the updated_by ID
+      userInfo.updated_by = updated_by; 
 
       // Save the updated user info
       await userInfo.save({ transaction: t });
@@ -185,7 +185,7 @@ async function updateAndSaveAccountType(req, res) {
       accountType.type_name = type_name;
       accountType.description = description;
       accountType.isActive = isActive;
-      accountType.updated_by = updated_by; // Add the updated_by ID
+      accountType.updated_by = updated_by; 
 
       // Save the updated account type
       await accountType.save({ transaction: t });
@@ -207,7 +207,7 @@ async function updateAndSaveAccountType(req, res) {
 // Controller function to update and save a site
 async function updateAndSaveSite(req, res) {
   const siteId = req.params.id;
-  const updated_by = req.user.id; // Assuming req.user contains the authenticated user's details
+  const updated_by = req.user.id; 
   const { name, url, domain, ip, isActive } = req.body;
 
   // Start a transaction
@@ -256,7 +256,7 @@ async function createSite(req, res) {
   }
 
   // Get the ID of the user who is creating the site
-  const createdBy = req.user.id; // Assuming req.user contains the authenticated user's details
+  const createdBy = req.user.id; 
 
   // Start a transaction
   const transaction = await sequelize.transaction();
@@ -301,7 +301,7 @@ async function deleteSite(req, res) {
     // Deactivate the site
     await site.update({
       isActive: false,
-      updated_by: req.user.id, // Assuming req.user contains the authenticated user's details
+      updated_by: req.user.id, 
       deleted_at: new Date(),
     }, { transaction });
 
@@ -324,7 +324,7 @@ async function createAccType(req, res) {
   }
 
   // Get the ID of the user who is creating the account type
-  const createdBy = req.user.id; // Assuming req.user contains the authenticated user's details
+  const createdBy = req.user.id; 
 
   // Start a transaction
   const transaction = await sequelize.transaction();
@@ -367,7 +367,7 @@ async function deleteAccType(req, res) {
     // Deactivate the account type
     await accType.update({
       isActive: false,
-      updated_by: req.user.id, // Assuming req.user contains the authenticated user's details
+      updated_by: req.user.id, 
       deleted_at: new Date(),
     }, { transaction });
 
